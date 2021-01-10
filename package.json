@@ -1,22 +1,19 @@
 {
-  "name": "blackbox-challenge",
+  "name": "express-hello-world",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Express Hello World on Render",
+  "main": "app.js",
+  "repository": "https://github.com/render-examples/express-hello-world",
+  "author": "Render Developers",
+  "license": "MIT",
+  "private": false,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/celineFadel/Blackbox-Challenge.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/celineFadel/Blackbox-Challenge/issues"
-  },
-  "homepage": "https://github.com/celineFadel/Blackbox-Challenge#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.16.3"
+  },
+  "engines": {
+    "node": ">=12 <13"
   }
 }
