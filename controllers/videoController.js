@@ -16,8 +16,9 @@ module.exports.uploadVideo = async (req, res, next) => {
         videoPath: correctFilePath(req.files['path'][0].path)
     };
 
-    if(req.files['thumbnailPath']) {
-        video_obj["thumbnailPath"] =  correctFilePath(req.files['thumbnailPath'][0].path);
+    if(req.files['thumbnail_path']) {
+        video_obj["thumbnailPath"] =  correctFilePath(req.files['thumbnail_path'][0].path);
+        console.log(correctFilePath(req.files['thumbnail_path'][0].path));
     }
     
     try {
@@ -58,7 +59,7 @@ module.exports.displayVideo = async (req, res, next) => {
         let currentDomain = "http://localhost:3001";
         videos = videos.map((video) => {
             video.videoPath = currentDomain + video.videoPath;
-            video.thumbnailPath = currentDomain + video.thumbnailPath;
+            video.thumbnailPath ? video.thumbnailPath = currentDomain + video.thumbnailPath : video.thumbnailPath = video.thumbnailPath;
             video.trimmedVideo = currentDomain + video.trimmedVideo;
 
             return video;

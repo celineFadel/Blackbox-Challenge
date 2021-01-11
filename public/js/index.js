@@ -3,14 +3,24 @@ function readURL(input) {
         var reader = new FileReader();
     
         reader.onload = function(e) {
-            $('.image-upload-wrap').hide();
-    
-            $('.file-upload-image').attr('src', e.target.result);
-            $('.file-upload-content').show();
-    
-            $('.image-title').html(input.files[0].name);
+            const lastDot = input.files[0].name.lastIndexOf('.');
+            const ext = input.files[0].name.substring(lastDot + 1);
 
-            console.log(e.target.result);
+            if (ext === "mp4") {
+                $('.image-upload-wrap').hide();
+    
+                $('.file-upload-video').attr('src', e.target.result);
+                $('.file-upload-content').show();
+        
+                $('.image-title').html(input.files[0].name);
+            } else {
+                $('.image-upload-wrap').hide();
+    
+                $('.file-upload-image').attr('poster', e.target.result);
+                $('.file-upload-content').show();
+        
+                $('.image-title').html(input.files[0].name);
+            }
         };
     
         reader.readAsDataURL(input.files[0]);
@@ -50,8 +60,12 @@ function submitVideo() {
         method: 'POST',
         body: form
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
+    .then((response) => {
+        response.json();
+    })
+    .then((data) => {
+        console.log(data);
+    })
     .catch((error) => {
         console.log('error', error)
     });
