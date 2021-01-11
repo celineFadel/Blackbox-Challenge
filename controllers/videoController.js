@@ -1,4 +1,4 @@
-let { correctFilePath } = require("../functions/functions");
+let { correctFilePath, trimFile } = require("../functions/functions");
 let {LogTime} = require("../functions/LogTime");
 
 
@@ -16,6 +16,7 @@ module.exports.uploadVideo = async (req, res, next) => {
     video_obj = {
         path: correctFilePath(req.files['path'][0].path)
     };
+
     if(req.files['thumbnail_path']) {
         video_obj = {
             path: correctFilePath(req.files['path'][0].path),
@@ -24,6 +25,7 @@ module.exports.uploadVideo = async (req, res, next) => {
     }
     
     try {
+        trimFile(video_obj.path);
         console.log(video_obj);
         // video = await UserManager.createUser(video_obj);
     } catch (error) {

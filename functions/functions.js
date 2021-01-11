@@ -2,6 +2,10 @@ let fse = require("fs-extra");
 let path = require("path");
 let multer = require("multer");
 
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+const ffmpeg = require('fluent-ffmpeg');
+ffmpeg.setFfmpegPath(ffmpegPath);
+
 module.exports.correctFilePath = (s) => {
   let arr = s.split("uploads");
   arr[1] = arr[1].split("\\");
@@ -22,7 +26,7 @@ module.exports.uploadFile = (obj = {}) => {
     let storage = multer.diskStorage({
         destination: function (req, file, cb) {
             //cb for callback
-            cb(null, path.join(__dirname, "../../uploads")); //cb(err,dest)
+            cb(null, path.join(__dirname, "../uploads")); //cb(err,dest)
         },
         filename: function (req, file, cb) {
             //cb for callback
@@ -35,7 +39,7 @@ module.exports.uploadFile = (obj = {}) => {
             fse.mkdirpSync(
                 path.join(
                 __dirname,
-                "../../uploads/" + date[3] + "/" + date[1] + "/" + date[2]
+                "../uploads/" + date[3] + "/" + date[1] + "/" + date[2]
                 )
             );
 
@@ -71,3 +75,26 @@ module.exports.uploadFile = (obj = {}) => {
 
     return upload;
 };
+
+module.exports.trimFile = (video_path) => {
+    video_path = "../" + video_path;
+    let trim_path = video_path.replace("uploads","trim");
+    let temp = trim_path.substring(0, trim_path.lastIndexOf("/"));
+    fse.mkdirpSync(
+        path.join(
+        __dirname,
+        temp
+        )
+    );
+
+    ffmpeg(path.join(__dirname, video_path))
+  .setStartTime('00:00:00')
+  .setDuration('2')
+  .output(path.join(__dirname, trim_path))
+  .on('end', function(err) {
+    if(!err) { console.log('conversion Done') }
+  })
+  .on('error', function(err){
+    console.log('error: ', err)
+  }).run()
+}
