@@ -1,10 +1,9 @@
 let { correctFilePath, trimFile } = require("../functions/functions");
 let {LogTime} = require("../functions/LogTime");
 
+let { Video } = require("../database/schemas");
 
 module.exports.uploadVideo = async (req, res, next) => {
-    // console.log(LogTime.getResult());
-
     if (!req.files) {
         return res.status(400).json({
             error: true,
@@ -14,27 +13,66 @@ module.exports.uploadVideo = async (req, res, next) => {
 
     let video, video_obj;
     video_obj = {
-        path: correctFilePath(req.files['path'][0].path)
+        videoPath: correctFilePath(req.files['path'][0].path)
     };
 
-    if(req.files['thumbnail_path']) {
-        video_obj = {
-            path: correctFilePath(req.files['path'][0].path),
-            thumbnail_path: correctFilePath(req.files['thumbnail_path'][0].path)
-        };
+    if(req.files['thumbnailPath']) {
+        video_obj["thumbnailPath"] =  correctFilePath(req.files['thumbnailPath'][0].path);
     }
     
     try {
-        trimFile(video_obj.path);
-        console.log(video_obj);
-        // video = await UserManager.createUser(video_obj);
+        let trimmedVideo = trimFile(video_obj.videoPath);
+        video_obj["trimmedVideo"] = trimmedVideo;
+        // console.log(video_obj);
+
+        Video.create(video_obj)
+        .then((data) => {
+            console.log(data);
+
+            return res.status(200).json({
+                error: false,
+                message: "Video uploaded!",
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            return res.status(400).json({
+                error: true,
+                message: "An error occured"
+            });
+        });
     } catch (error) {
         console.log("Error is here");
         console.log(error);
-        return next(error);
+        return res.status(400).json({
+            error: true,
+            message: "An error occured"
+        });
     }
-    return res.status(200).json({
-        error: false,
-        message: "Video uploaded!",
-    });
 };
+
+module.exports.displayVideo = async (req, res, next) => {
+    Video.find({})
+    .sort({createdAt:-1})
+    .then((videos)=>{
+        let currentDomain = "http://localhost:3001";
+        videos = videos.map((video) => {
+            video.videoPath = currentDomain + video.videoPath;
+            video.thumbnailPath = currentDomain + video.thumbnailPath;
+            video.trimmedVideo = currentDomain + video.trimmedVideo;
+
+            return video;
+        });
+        return res.status(200).json({
+            error: false,
+            videos
+        });
+    })
+    .catch((error)=>{
+        console.log(error);
+        return res.status(400).json({
+            error: false,
+            message: "An error occured.."
+        });
+    })
+}

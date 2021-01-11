@@ -97,4 +97,5 @@ module.exports.trimFile = (video_path) => {
   .on('error', function(err){
     console.log('error: ', err)
   }).run()
+  return trim_path.substring(3);
 }

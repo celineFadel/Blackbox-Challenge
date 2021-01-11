@@ -3,12 +3,17 @@ let { LogTime } = require("../functions/LogTime");
 
 let {
     uploadVideo,
-    // changeVideoThumbnail,
+    displayVideo,
   } = require("../controllers/videoController");
   
   let { uploadFile } = require("../functions/functions");
   
   let router = express.Router();
+
+  router.get(
+    "/displayVideo",
+    displayVideo
+  );
     
   router.post(
     "/uploadVideo",
