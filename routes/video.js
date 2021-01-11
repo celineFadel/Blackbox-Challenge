@@ -13,7 +13,7 @@ let {
   router.post(
     "/uploadVideo",
     LogTime.setStartMiddleware,
-    uploadFile().single("path"),
+    uploadFile().fields([{ name: 'path', maxCount: 1 }, { name: 'thumbnail_path', maxCount: 1 }]),
     LogTime.setEndMiddleware,
     uploadVideo
   );

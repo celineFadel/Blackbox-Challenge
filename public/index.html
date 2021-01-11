@@ -9,9 +9,11 @@
     <body>
         <div class="file-upload">
             <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Video</button>
+            <button class="file-upload-btn" type="button" onclick="$('.thumbnail-upload-input').trigger( 'click' )">Add Thumbnail (Optional)</button>
 
             <div class="image-upload-wrap">
                 <input class="file-upload-input" type='file' onchange="readURL(this);" />
+                <input class="thumbnail-upload-input" type='file' onchange="readURL(this);" />
                 <div class="drag-text">
                 <h3>Drag and drop a file or select add Video</h3>
                 </div>
@@ -19,12 +21,19 @@
             <div class="file-upload-content">
                 <img class="file-upload-image" src="#" alt="your image" />
                 <div class="image-title-wrap">
-                <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Video</span></button>
                 </div>
             </div>
+
+            <button class="file-upload-btn" type="button" onclick="submitVideo()">Submit Video</button>
+
+            <!-- <video width="320" height="240" poster="https://getuikit.com/v2/docs/images/placeholder_600x400.svg" controls>
+                <source src="../uploads/SampleVideo_1280x720_1mb.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video> -->
         </div>
 
         <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script src="public/Stuk-jszip-25d401e/dist/jszip.min.js"></script>
         <script src="public/js/index.js"></script>
     </body>
 </html>

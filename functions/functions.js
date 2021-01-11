@@ -66,7 +66,7 @@ module.exports.uploadFile = (obj = {}) => {
     //What we must return:
     let upload = multer({
         storage: storage,
-        fileFilter: fileFilter,
+        // fileFilter: fileFilter,
     });
 
     return upload;
