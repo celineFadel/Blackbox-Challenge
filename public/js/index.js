@@ -47,7 +47,6 @@ function submitVideo() {
 
     zip.file(requestedFile.name, requestedFile, { binary: true });
     zip.generateAsync({ type: "blob" }).then(function (content) {
-        // console.log(content);
         //   saveAs(content, "example.zip");
     });
     let form = new FormData();
@@ -64,7 +63,6 @@ function submitVideo() {
         response.json();
     })
     .then((data) => {
-        console.log(data);
         location.href = "/public/videoGallery.html"
     })
     .catch((error) => {

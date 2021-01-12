@@ -18,18 +18,14 @@ module.exports.uploadVideo = async (req, res, next) => {
 
     if(req.files['thumbnail_path']) {
         video_obj["thumbnailPath"] =  correctFilePath(req.files['thumbnail_path'][0].path);
-        console.log(correctFilePath(req.files['thumbnail_path'][0].path));
     }
     
     try {
         let trimmedVideo = trimFile(video_obj.videoPath);
         video_obj["trimmedVideo"] = trimmedVideo;
-        // console.log(video_obj);
 
         Video.create(video_obj)
         .then((data) => {
-            console.log(data);
-
             return res.status(200).json({
                 error: false,
                 message: "Video uploaded!",
