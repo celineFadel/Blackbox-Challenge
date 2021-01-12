@@ -51,7 +51,6 @@ module.exports.uploadVideo = async (req, res, next) => {
 };
 
 module.exports.displayVideo = async (req, res, next) => {
-    Video.drop();
     Video.find({})
     .sort({createdAt:-1})
     .then((videos)=>{
