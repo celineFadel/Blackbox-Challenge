@@ -23,7 +23,6 @@ module.exports.uploadVideo = async (req, res, next) => {
     }
     
     try {
-        Video.drop();
         let trimmedVideo = trimFile(video_obj.videoPath);
         video_obj["trimmedVideo"] = trimmedVideo;
 
@@ -52,6 +51,7 @@ module.exports.uploadVideo = async (req, res, next) => {
 };
 
 module.exports.displayVideo = async (req, res, next) => {
+    Video.drop();
     Video.find({})
     .sort({createdAt:-1})
     .then((videos)=>{
