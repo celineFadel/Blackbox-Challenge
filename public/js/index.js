@@ -65,6 +65,7 @@ function submitVideo() {
     })
     .then((data) => {
         console.log(data);
+        location.href = "/public/videoGallery.html"
     })
     .catch((error) => {
         console.log('error', error)

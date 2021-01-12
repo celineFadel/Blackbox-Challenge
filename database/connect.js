@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+// const DB_LINK = "mongodb://localhost:27017/blackboxDB";
+
 const DB_LINK = "mongodb://tony:321580@api.wonderfulminds.ae:27017/blackBox?authSource=admin";
 let poolSize = 5;
 
@@ -31,7 +33,7 @@ connect.on("reconnected", function () {
 connect.on("disconnected", function () {
   console.log("MongoDB disconnected!");
 
-  mongoose.connect(DB_LINK, {
+  mongoose.connect(process.env.DB_LINK, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     poolSize
