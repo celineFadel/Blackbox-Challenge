@@ -38,6 +38,10 @@ function removeUpload() {
     $('.image-upload-wrap').show();
 }
 
+function goToVideos() {
+    location.href = "/public/videoGallery.html"
+}
+
 function submitVideo() {
     // $('.file-upload-submit')
     var requestedFile = $('.file-upload-input')[0].files[0];
