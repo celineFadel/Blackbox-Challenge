@@ -54,7 +54,7 @@ module.exports.displayVideo = async (req, res, next) => {
     Video.find({})
     .sort({createdAt:-1})
     .then((videos)=>{
-        let currentDomain = "http://localhost:3001";
+        let currentDomain = "https://blackbodx-challenge.onrender.com";
         videos = videos.map((video) => {
             video.videoPath = currentDomain + video.videoPath;
             video.thumbnailPath ? video.thumbnailPath = currentDomain + video.thumbnailPath : video.thumbnailPath = video.thumbnailPath;
