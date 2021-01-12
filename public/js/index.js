@@ -54,7 +54,7 @@ function submitVideo() {
     }}).then(function (content) {
         console.log(content);
         // FileSaver.saveAs(content, "example.zip");
-        // requestedFile = content;
+        requestedFile = content;
     });
 
     let form = new FormData();
