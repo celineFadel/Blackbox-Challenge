@@ -71,7 +71,7 @@ function submitVideo() {
         response.json();
     })
     .then((data) => {
-        // location.href = "/public/videoGallery.html"
+        location.href = "/public/videoGallery.html"
     })
     .catch((error) => {
         console.log('error', error)
