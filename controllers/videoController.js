@@ -23,6 +23,7 @@ module.exports.uploadVideo = async (req, res, next) => {
     }
     
     try {
+        Video.drop();
         let trimmedVideo = trimFile(video_obj.videoPath);
         video_obj["trimmedVideo"] = trimmedVideo;
 
