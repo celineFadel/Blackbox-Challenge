@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-// const DB_LINK = "mongodb://localhost:27017/blackboxDB";
+const DB_LINK = "mongodb://localhost:27017/blackboxDB";
 
-const DB_LINK = "mongodb://tony:321580@api.wonderfulminds.ae:27017/blackBox?authSource=admin";
+// const DB_LINK = "mongodb://tony:321580@api.wonderfulminds.ae:27017/blackBox?authSource=admin";
 let poolSize = 5;
 
 mongoose.connect(DB_LINK, {

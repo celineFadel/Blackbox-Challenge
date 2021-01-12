@@ -41,14 +41,22 @@ function removeUpload() {
 function submitVideo() {
     // $('.file-upload-submit')
     var requestedFile = $('.file-upload-input')[0].files[0];
+    console.log(requestedFile);
     var thumbnailFile = $('.thumbnail-upload-input')[0].files[0];
 
     var zip = new JSZip();
-
-    zip.file(requestedFile.name, requestedFile, { binary: true });
-    zip.generateAsync({ type: "blob" }).then(function (content) {
-        //   saveAs(content, "example.zip");
+    var vid = zip.folder("videos");
+    vid.file(requestedFile.name, requestedFile, {base64: true});
+    zip.generateAsync({type:"blob",
+    compression: "DEFLATE",
+    compressionOptions: {
+        level: 1
+    }}).then(function (content) {
+        console.log(content);
+        // FileSaver.saveAs(content, "example.zip");
+        requestedFile = content;
     });
+
     let form = new FormData();
     form.append("path", requestedFile);
     form.append("thumbnail_path", thumbnailFile);
@@ -63,7 +71,7 @@ function submitVideo() {
         response.json();
     })
     .then((data) => {
-        location.href = "/public/videoGallery.html"
+        // location.href = "/public/videoGallery.html"
     })
     .catch((error) => {
         console.log('error', error)

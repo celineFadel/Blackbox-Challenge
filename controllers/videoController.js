@@ -4,6 +4,8 @@ let {LogTime} = require("../functions/LogTime");
 let { Video } = require("../database/schemas");
 
 module.exports.uploadVideo = async (req, res, next) => {
+    console.log(LogTime.getResult());
+
     if (!req.files) {
         return res.status(400).json({
             error: true,
